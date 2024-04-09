@@ -1,27 +1,25 @@
-#include <SoftwareSerial.h>
-
-SoftwareSerial BTSerial(10, 11); // RX, TX
 int reading; 
 bool command; 
 
 void setup() {
-  Serial.begin(9600); // Start serial communication with the computer
-  BTSerial.begin(9600); // Start serial communication with the Bluetooth module
+  Serial.begin(19200); // Start serial communication with the computer
 }
 
 void loop() {
-  reading = 1023 - analogRead(A0); // Assuming you're using a pressure sensor or similar
+    reading = 1023 - analogRead(A0); 
   Serial.print("value received: ");
   Serial.println(reading);
-
-  if (reading < 500) {
+  if (reading < 600) {
     command = true; 
-    Serial.println("button pressed");
-    BTSerial.println("TRUE"); // Send "TRUE" over Bluetooth
+    Serial.println("TRUE");
+  
+
+
+  
   } else {
     command = false;
-    BTSerial.println("FALSE"); // Optionally, send "FALSE" over Bluetooth
+    Serial.println("FALSE");
   }
 
-  delay(1000);
+ delay(500);
 }
